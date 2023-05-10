@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Login Page</title>
-</head>
-<body>
-<h1>Login Page</h1>
+<#import "parts/common.ftlh" as c>
+
+<@c.page>
 <form action="/login" method="post">
     <div>
         <label for="username">Username:</label>
@@ -20,5 +15,4 @@
         <button type="submit">Login</button>
     </div>
 </form>
-</body>
-</html>
+</@c.page>

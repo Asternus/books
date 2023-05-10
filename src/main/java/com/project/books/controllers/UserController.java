@@ -4,16 +4,16 @@ package com.project.books.controllers;
 import com.project.books.entity.User;
 import com.project.books.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/user")
+@PreAuthorize("hasAuthority('USER')")
 public class UserController {
 
     private final UserService userService;
@@ -29,26 +29,6 @@ public class UserController {
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
         return "profile";
-    }
-
-    @PostMapping("profile")
-    public String updateProfile(
-            @AuthenticationPrincipal User user,
-            @RequestParam String password,
-            @RequestParam String email
-    ) {
-
-   /*     userService.updateProfile(user, password, email);*/
-
-        return "redirect:/user/profile";
-    }
-
-    @PostMapping("profile/delete")
-    public String deleteUser(@AuthenticationPrincipal User user) {
-
-   /*     userService.delUSer(user);*/
-
-        return "redirect:/logout";
     }
 
 }

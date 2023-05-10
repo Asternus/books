@@ -1,16 +1,22 @@
+<#include "security.ftlh">
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="/">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-
             <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="/login">login</a>
-            <a class="nav-item nav-link" href="#">Pricing</a>
-            <a class="nav-item nav-link disabled" href="#">Disabled</a>
+            <#if known>
+                <a class="nav-item nav-link" href="/form">Books form</a>
+                <a class="nav-item nav-link" href="/user/profile">${name}</a>
+                <a class="nav-item nav-link" href="/logout">logout</a>
+            <#else>
+                <a class="nav-item nav-link" href="/registration">registration</a>
+                <a class="nav-item nav-link" href="/login">login</a>
+            </#if>
         </div>
     </div>
 </nav>

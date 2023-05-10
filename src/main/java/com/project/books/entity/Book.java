@@ -26,6 +26,8 @@ public class Book {
 
     private Long count;
 
+    private Long userId;
+
     public void addBook(final Long count) {
         this.count += count;
     }
