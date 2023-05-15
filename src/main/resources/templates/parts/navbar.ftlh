@@ -11,6 +11,7 @@
             <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
             <#if known>
                 <a class="nav-item nav-link" href="/form">Books form</a>
+                <a class="nav-item nav-link" href="/books">Pages</a>
                 <a class="nav-item nav-link" href="/user/profile">${name}</a>
                 <a class="nav-item nav-link" href="/logout">logout</a>
             <#else>

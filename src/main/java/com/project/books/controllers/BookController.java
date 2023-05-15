@@ -4,13 +4,11 @@ import com.project.books.entity.Book;
 import com.project.books.entity.User;
 import com.project.books.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -20,6 +18,11 @@ import java.util.Set;
 public class BookController {
     private final BookService bookService;
 
+    @Autowired
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
+
     @ModelAttribute
     public void addGlobalAttributes(Model model) {
         final Set<Book> allBooks = bookService.getAllBooks();
@@ -27,9 +30,18 @@ public class BookController {
         model.addAttribute("entities", allBooks);
     }
 
-    @Autowired
-    public BookController(BookService bookService) {
-        this.bookService = bookService;
+    @GetMapping("/books")
+    public String getBooks(@RequestParam(value = "page", defaultValue = "0") int page,
+                           Model model) {
+
+        int pageSize = 5;
+        Page<Book> bookPage = bookService.getBooks(page, pageSize);
+
+        model.addAttribute("allBooks", bookPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", bookPage.getTotalPages());
+
+        return "pages";
     }
 
     @GetMapping("/")
